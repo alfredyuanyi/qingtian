@@ -1,0 +1,44 @@
+{% extends "homebase.html" %}
+{% block title %} {{ blog_type }}——晴天网 {% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/CSharpbase.css">
+{% endblock %}
+{% block content %}
+<div class="container" id="csharpcontainer">
+{% if blog_type == 'C#基础' %}
+{% for blog in blogs %}
+<div class="list-group">
+    <a href="/blogs/CSharpbaseblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <p class="list-group-item-text">{{ blog.content }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if blog_type == 'C#进阶' %}
+{% for blog in blogs %}
+<div class="list-group">
+    <a href="/blogs/CSharpadvanceblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <p class="list-group-item-text">{{ blog.content }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if blog_type == 'Bootstrap' %}
+{% for blog in blogs %}
+<div class="list-group">
+    <a href="/blogs/Bootstrapblog{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <p class="list-group-item-text">{{ blog.content }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if blog_type == 'ubuntu' %}
+{% for blog in blogs %}
+<div class="list-group">
+    <a href="/blogs/ubuntublog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <p class="list-group-item-text">{{ blog.content }}</p>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+{% endblock %}

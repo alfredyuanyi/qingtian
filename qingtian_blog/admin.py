@@ -6,7 +6,7 @@ from qingtian_blog.models import *
 class BlogAdmin(admin.ModelAdmin):
 	list_display = ('title', 'date', 'traffic', 'approval', 'oppostion')
 	search_fields = ('date', 'title', 'content', 'blog_type')
-	list_filter = ('title', 'date')
+	list_filter = ('blog_type', 'date')
 	ordering = ('-traffic',)
 	pass
 
