@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qingtian_blog',
+    'qingtian_user',
 ]
 
 MIDDLEWARE_CLASSES = [

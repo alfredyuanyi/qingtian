@@ -25,3 +25,4 @@ blogtype = {
 	'Bootstrap': 'Bootstrap',
 	'ubuntu': 'ubuntu'
 }
+
