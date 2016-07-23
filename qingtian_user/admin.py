@@ -4,8 +4,8 @@ from qingtian_user.models import *
 
 class UserAdmin(admin.ModelAdmin):
 	list_display = ('username', 'email', 'password')
-	list_filter = ('username')
-	ordering = ('username')
+	list_filter = ('username',)
+	ordering = ('username',)
 	pass
 
 admin.site.register(User, UserAdmin)

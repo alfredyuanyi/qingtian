@@ -1,0 +1,11 @@
+#userform {
+	margin-top: 51px;
+	height: 1000px;
+	width: auto;
+	background-image: url('/static/img/userformbackground.jpg');
+}
+#form {
+	height: auto;
+	width: 400px;
+	margin: 0, auto;	
+}
