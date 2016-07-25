@@ -16,12 +16,12 @@ def Register(request):
 				user = User.objects.create(username = form_data['username'],
 					password = form_data['password'],
 					email = form_data['email'])
-				user.save()
 				authUser = AuthUser.objects.create_user(username = user.username, password = user.password)
 				authUser.save()
 				loginUser = authenticate(username = user.username, password = user.password)
 				if loginUser is not None:
 					login(request, user = loginUser)
+					user.save()
 					return redirect('/home/')
 					pass
 				pass
@@ -37,4 +37,56 @@ def Register(request):
 	return render(request, 
 		template_name = 'userform.html',
 		context = {'form': form})
+	pass
+
+def Logout(request):
+	user = request.user
+	logout(request)
+	AuthUser.objects.filter(username = user.username).delete()
+	return redirect('/users/loginservice/')
+	pass
+
+def Login(request):
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			data = form.cleaned_data
+			authUser = AuthUser.objects.create_user(username = data['username'], password= data['password'])
+			authUser.save()
+			loginUser = authenticate(username = data['username'], password = data['password'])
+			if loginUser is not None:
+				login(request, user = loginUser)
+				return redirect('/home/')
+				pass
+			pass
+		pass
+	else:
+		form = LoginForm(initial = {
+			'username': '请输入用户名',
+			'password': '请输入密码'
+			})
+		pass
+	return render(request, 
+		template_name = 'login.html',
+		context = {'form': form})
+	pass
+
+def SetComment(request, blogid, blog_type):
+	if request.method == 'POST':
+		if request.user.is_authenticated():
+			form = CommentForm(request.POST)
+			if form.is_valid():
+				data = form.cleaned_data
+				comment = Comment.objects.create(content = data['content'],
+					user = data['username'],
+					blog = data['blog'])
+				comment.save()
+				return HttpResponse('评论成功，感谢您的评论！')
+				pass
+			pass
+		else:
+			return HttpResponse('请先登陆，登陆后才可评论')
+		pass
+	else:
+		return HttpResponse('请求方法错误！请摆好姿势')
 	pass

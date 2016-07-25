@@ -25,6 +25,60 @@
     </div>
     
     <p class="list-group-item-text">{{ blog.content }}</p>
+    <hr>
+    <h4>评论</h4>
+    <hr>
+    <div class="container">
+    {% for comment in comments %}
+        <div class="row">
+            <div class="col-md-12 usernameblue"><h4>{{ comment.user.username }}</h4></div>
+        </div>
+        <div class="row">
+            <div class="col-12 timecolor">评论时间：{{ comment.datetime }}</div>
+        </div>
+        <div class="row">
+            <p>{{ comment.content }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+    </div>
+    <hr>
+    {% if blog.blog_type == 'C#base' %}
+    <form action="/users/newcomment/CSharpbaseblog/{{ blog.id }}/" method="post">
+    {% csrf_token %}
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <input type="hidden" name="username" value="{{ user.username }}">
+        <input type="hidden" name="blog" value="{{ blog.id }}">
+        <button type="submit" class="btn btn-default">发表评论</button>
+    </form>
+    {% endif %}
+    {% if blog.blog_type == 'C#advance' %}
+    <form action="/users/newcomment/CSharpadvanceblog/{{ blog.id }}/" method="post">
+    {% csrf_token %}
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <input type="hidden" name="username" value="{{ user.username }}">
+        <input type="hidden" name="blog" value="{{ blog.id }}">
+        <button type="submit" class="btn btn-default">发表评论</button>
+    </form>
+    {% endif %}
+    {% if blog.blog_type == 'Bootstrap' %}
+    <form action="/users/newcomment/Bootstrapblog/{{ blog.id }}/" method="post">
+    {% csrf_token %}
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <input type="hidden" name="username" value="{{ user.username }}">
+        <input type="hidden" name="blog" value="{{ blog.id }}">
+        <button type="submit" class="btn btn-default">发表评论</button>
+    </form>
+    {% endif %}
+    {% if blog.blog_type == 'ubuntu' %}
+    <form action="/users/newcomment/ubuntublog/{{ blog.id }}/" method="post">
+    {% csrf_token %}
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <input type="hidden" name="username" value="{{ user.username }}">
+        <input type="hidden" name="blog" value="{{ blog.id }}">
+        <button type="submit" class="btn btn-default">发表评论</button>
+    </form>
+    {% endif %}
  </div>
 </div>
 {% endblock %}

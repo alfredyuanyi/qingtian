@@ -9,3 +9,9 @@
 	width: 400px;
 	margin: 0, auto;	
 }
+#loginform {
+	margin-top: 51px;
+	height: 1000px;
+	width: auto;
+	background-image: url('/static/img/loginformbackground.jpg');
+}

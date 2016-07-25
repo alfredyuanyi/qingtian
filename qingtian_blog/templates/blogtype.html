@@ -26,7 +26,7 @@
 {% if blog_type == 'Bootstrap' %}
 {% for blog in blogs %}
 <div class="list-group">
-    <a href="/blogs/Bootstrapblog{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <a href="/blogs/Bootstrapblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
     <p class="list-group-item-text">{{ blog.content }}</p>
 </div>
 {% endfor %}

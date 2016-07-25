@@ -19,6 +19,7 @@ class Blog(models.Model):
 	class Meta:
 		ordering = ['-traffic']
 		verbose_name = '博客'
+		verbose_name_plural = '博客' # 显式指定管理站点的显示，
 blogtype = {
 	'C#base': 'C#基础',
 	'C#advance': 'C#进阶',

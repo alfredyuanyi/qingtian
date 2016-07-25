@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, logout, login
 from qingtian_blog.models import *
+from qingtian_user.models import Comment
 # Create your views here.
 def Home(request):
 	if request.method == 'GET':
@@ -50,18 +51,21 @@ def Blogid(request, blogid, blog_type):
 		Btype = blogtype[blog_type]
 		blog.traffic += 1
 		blog.save()
+		comment = blog.comment_set.all()
 		if request.user.is_authenticated():
 			return render(request,
 				template_name = 'C#baseid.html',
 				context = {'blog': blog,
 				'blog_type': Btype,
-				'haslogin': True})
+				'haslogin': True,
+				'comments': comment})
 			pass
 		return render(request,
 			template_name = 'C#baseid.html',
 			context = {'blog': blog,
 			'blog_type': Btype,
-			'haslogin': False})
+			'haslogin': False,
+			'comments': comment})
 		pass
 	else:
 		return Http404
