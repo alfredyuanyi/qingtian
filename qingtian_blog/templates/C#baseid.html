@@ -16,7 +16,7 @@
     		<div class="col-md-4">点个赞 
     		<div class="btn-group" data-toggle="buttons">
 	    		<label class="btn btn-default ">
-	    		<input type="checkbox" autocomplete="off" checked>
+	    		<input type="checkbox" autocomplete="off" checked id="dianzan">
 	    		<span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
 	  			</label>
   			</div>
@@ -46,7 +46,7 @@
     {% if blog.blog_type == 'C#base' %}
     <form action="/users/newcomment/CSharpbaseblog/{{ blog.id }}/" method="post">
     {% csrf_token %}
-        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..." id="commentarea"></textarea>
         <input type="hidden" name="username" value="{{ user.username }}">
         <input type="hidden" name="blog" value="{{ blog.id }}">
         <button type="submit" class="btn btn-default">发表评论</button>
@@ -55,7 +55,7 @@
     {% if blog.blog_type == 'C#advance' %}
     <form action="/users/newcomment/CSharpadvanceblog/{{ blog.id }}/" method="post">
     {% csrf_token %}
-        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..." id="commentarea"></textarea>
         <input type="hidden" name="username" value="{{ user.username }}">
         <input type="hidden" name="blog" value="{{ blog.id }}">
         <button type="submit" class="btn btn-default">发表评论</button>
@@ -64,7 +64,7 @@
     {% if blog.blog_type == 'Bootstrap' %}
     <form action="/users/newcomment/Bootstrapblog/{{ blog.id }}/" method="post">
     {% csrf_token %}
-        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..." id="commentarea"></textarea>
         <input type="hidden" name="username" value="{{ user.username }}">
         <input type="hidden" name="blog" value="{{ blog.id }}">
         <button type="submit" class="btn btn-default">发表评论</button>
@@ -73,7 +73,7 @@
     {% if blog.blog_type == 'ubuntu' %}
     <form action="/users/newcomment/ubuntublog/{{ blog.id }}/" method="post">
     {% csrf_token %}
-        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..."></textarea>
+        <textarea class="form-control" rows="3" name="content" placeholder="我也来评论..." id="commentarea"></textarea>
         <input type="hidden" name="username" value="{{ user.username }}">
         <input type="hidden" name="blog" value="{{ blog.id }}">
         <button type="submit" class="btn btn-default">发表评论</button>
@@ -81,4 +81,19 @@
     {% endif %}
  </div>
 </div>
+<script type="text/javascript">
+function checklogin()
+    $('#commentarea').blur(function(){
+        $.ajax({
+            url: "/users/testlogin/",
+            type: "GET",
+            success: function(arg){
+                if (arg == "") {}
+                else {
+                    alert(arg)
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}

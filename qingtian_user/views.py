@@ -3,9 +3,22 @@ from django.shortcuts import render, redirect
 from django.http import Http404,HttpResponse
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
 from qingtian_user.models import *
 from qingtian_user.forms import *
 # Create your views here.
+@csrf_exempt
+def TestUsername(request):
+	if request.method == 'POST':
+		username = request.POST['username']
+		try:
+			user = User.objects.get(username = username)
+			return HttpResponse('该用户名已存在，请重新输入')
+			pass
+		except User.DoesNotExist:
+			return HttpResponse('用户名可用')
+		pass
+	pass
 def Register(request):
 	if request.method == 'POST':
 		if request.session.test_cookie_worked():
@@ -13,6 +26,9 @@ def Register(request):
 			form = UserForm(request.POST)
 			if form.is_valid():
 				form_data = form.cleaned_data
+				if User.objects.get(username = form_data['username']) is not None:
+					return HttpResponse('该用户名已存在，请重新输入')
+					pass
 				user = User.objects.create(username = form_data['username'],
 					password = form_data['password'],
 					email = form_data['email'])
@@ -89,4 +105,12 @@ def SetComment(request, blogid, blog_type):
 		pass
 	else:
 		return HttpResponse('请求方法错误！请摆好姿势')
+	pass
+@csrf_exempt
+def TestLogin(request):
+	if request.user.is_authenticated():
+		return HttpResponse('')
+		pass
+	else:
+		return HttpResponse('请先登陆，登陆后才可评论')
 	pass
