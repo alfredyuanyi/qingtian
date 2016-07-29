@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^home/$', views.Home),
     url(r'^$', views.Home),
     url(r'^users/', include(qingtian_user.urls)),
+    url(r'^contact/$', views.Contact),
 ]

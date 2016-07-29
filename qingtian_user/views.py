@@ -16,6 +16,9 @@ def TestUsername(request):
 			return HttpResponse('该用户名已存在，请重新输入')
 			pass
 		except User.DoesNotExist:
+			if username == '':
+				return HttpResponse('用户名不可为空')
+				pass
 			return HttpResponse('用户名可用')
 		pass
 	pass

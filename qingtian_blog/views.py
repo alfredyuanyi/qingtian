@@ -70,3 +70,19 @@ def Blogid(request, blogid, blog_type):
 	else:
 		return Http404
 	pass
+
+def Contact(request):
+	if request.method == 'GET':
+		if request.user.is_authenticated():
+			return render(request, 
+				template_name = 'contact.html',
+				context = {'haslogin': True})
+			pass
+		else:
+			return render(request, 
+			template_name = 'contact.html',
+			context = {'haslogin': False})
+		pass
+	else:
+		return Http404
+	pass

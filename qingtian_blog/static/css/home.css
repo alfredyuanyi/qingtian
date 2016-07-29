@@ -11,3 +11,18 @@
 	width: 100%;
 	height: 100%;
 }
+#contactimg {
+	margin-top: 51px;
+	background-image: url('/static/img/countryside.jpg');
+	height: 1000px;
+	width: 100%;
+	padding: 0px;
+	margin-left, margin-right: 0;
+}
+.words {
+	height: auto;
+	width: auto;
+	margin: 0, auto;
+	color: white;
+	text-align: center;	
+}
