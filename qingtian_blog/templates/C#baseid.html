@@ -16,8 +16,8 @@
     		<div class="col-md-4">点个赞 
     		<div class="btn-group" data-toggle="buttons">
 	    		<label class="btn btn-default ">
-	    		<input type="checkbox" autocomplete="off" checked id="dianzan">
-	    		<span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+	    		<input type="checkbox" autocomplete="off" checked>
+	    		<span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true" id="approval"></span>
 	  			</label>
   			</div>
 			</div>
@@ -91,6 +91,17 @@
                 else {
                     alert(arg)
                 }
+            }
+        });
+    });
+    $('#approval').click(function(){
+        var blog_id = {{ blog.id }};
+        $.ajax({
+            url: "/users/approval/",
+            type: "POST",
+            data: { blogid : blog_id },
+            success: function(arg){
+                alert(arg)
             }
         });
     });

@@ -10,6 +10,7 @@ urlpatterns = [
 	url(r'newcomment/ubuntublog/(?P<blogid>\d*)/$',views.SetComment, {'blog_type': 'ubuntu'}),
 	url(r'testusername/$', views.TestUsername),
 	url(r'testlogin/$', views.TestLogin),
+	url(r'approval/$', views.Approval),
 	# url(r'findpassword/$', views.SendMail),
 	# url(r'checkcode/$', views.CheckCode),
 	

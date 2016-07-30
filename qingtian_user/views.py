@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from qingtian_user.models import *
 from qingtian_user.forms import *
+from qingtian_blog.models import Blog
 # Create your views here.
 @csrf_exempt
 def TestUsername(request):
@@ -116,4 +117,15 @@ def TestLogin(request):
 		pass
 	else:
 		return HttpResponse('请先登陆，登陆后才可评论')
+	pass
+@csrf_exempt
+def Approval(request):
+	if request.method == 'POST':
+		blog = Blog.objects.get(id = request.POST['blogid'])
+		blog.approval += 1
+		blog.save()
+		return HttpResponse('感谢点赞')
+		pass
+	else:
+		return HttpResponse('姿势不对哦')
 	pass
