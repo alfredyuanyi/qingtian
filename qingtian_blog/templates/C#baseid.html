@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container" id="csharpcontainer">
 <div class="list-group">
-    <h4 class="list-group-item-heading">{{ blog.title }}</h4>
+    <h1 class="list-group-item-heading">{{ blog.title }}</h4>
     <div class="container">
     	<div class="row">
     		<div class="col-md-2">作者：许健</div>
@@ -24,7 +24,7 @@
     	</div>
     </div>
     
-    <p class="list-group-item-text">{{ blog.content }}</p>
+    {% block blog_content %}{% endblock %}
     <hr>
     <h4>评论</h4>
     <hr>

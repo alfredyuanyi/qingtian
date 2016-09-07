@@ -1,0 +1,39 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="lead list-group-item-text">索引器未访问类或者结构体中封装的列表或字典型数据元素提供了自然的访问接口。索引器和属性很相似，但是索引器通过索引值而非属性名访问数据元素.</p>
+<p>要编写一个索引器，首先定义一个名为this的属性，将参数定义放在一对方括号中。<br>代码如下：<br>定义索引器:<br>
+	<pre>
+	public class YouClass
+    {
+        string[] word = "the quick browm fox".Split();
+        public string this [int index]
+        {
+            get { return word [index];}
+            set { word [index] = value;}
+        }
+    }
+	</pre>
+	在main函数中调用：<br>
+	<pre>
+	YouClass y = new YouClass();
+        Console.WriteLine(y[0]);
+        y[0] = "that";
+        Console.WriteLine(y[0]);
+	</pre>
+	运行结果：<br>
+	<pre>
+		the
+		that	
+	</pre>
+</p>
+<p>
+	一个类可以定义多个参数类型不同的索引器，索引器也可以有多个参数：<br>
+	<pre>
+		
+public string this [ int arg1, string arg2]
+{
+    get { }  set { } 
+}
+	</pre>
+</p>
+{% endblock %}

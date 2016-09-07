@@ -1,0 +1,22 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">众所周知，构造函数一般在实例化类的时候被其他的类的内部所调用，所以一般类的构造函数都是public修饰的，
+但是，也有非公有构造函数，那么非公有构造函数是怎么处于什么原因被定义的呢？</p>
+<p class="list-group-item-text">通常定义非公有构造函数的原因是为了在一个静态方法中控制类实例的创建。静态方法可以用于从池中返回类对象，而不必创建一个新对象实例，或用来根据不同的输入属性返回不同的子类。</p>
+<p><br>代码如下：<br>
+	<pre>
+namespace N3
+{
+    public class MyClass
+    {
+        MyClass()  { }    //私有构造函数
+        public static MyClass Create()
+        {
+                       //在这里定义自己的逻辑，返回MyClass的实例
+        }
+    }
+}
+	</pre>
+	
+</p>
+{% endblock %}

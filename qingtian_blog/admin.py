@@ -9,6 +9,7 @@ class BlogAdmin(admin.ModelAdmin):
 	list_filter = ('blog_type', 'date')
 	ordering = ('-traffic',)
 	pass
-
+class UploadFileAdmin(admin.ModelAdmin):
+	admin.site.register(UploadFile)
 
 admin.site.register(Blog, BlogAdmin)

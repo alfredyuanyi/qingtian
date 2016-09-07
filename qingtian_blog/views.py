@@ -54,14 +54,14 @@ def Blogid(request, blogid, blog_type):
 		comment = blog.comment_set.all()
 		if request.user.is_authenticated():
 			return render(request,
-				template_name = 'C#baseid.html',
+				template_name = blog.blog_tag + '.html',
 				context = {'blog': blog,
 				'blog_type': Btype,
 				'haslogin': True,
 				'comments': comment})
 			pass
 		return render(request,
-			template_name = 'C#baseid.html',
+			template_name = blog.blog_tag + '.html',
 			context = {'blog': blog,
 			'blog_type': Btype,
 			'haslogin': False,
