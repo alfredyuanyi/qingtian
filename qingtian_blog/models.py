@@ -7,6 +7,7 @@ from django.db import models
 class Blog(models.Model):
 	title = models.CharField(max_length = 100)
 	content = models.TextField()
+	blog_tag = models.CharField(max_length=20, default="hello")
 	# blog_type 只有C#base, C#advance, Bootstrap, ubuntu四种选择
 	blog_type = models.CharField(max_length = 20)
 	date = models.DateField()
