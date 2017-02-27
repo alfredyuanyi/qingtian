@@ -1,0 +1,34 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+C#预处理器指令在调试代码的时候作用较大，但是实际销售软件的时候一般不希望编译这部分代码。<br>
+C#预处理器指令主要有：<strong>#define，#undef，#if，#endif，#elif（=else if），#else，#warning，#error，#region，#endregion（预处理器指令的开头都有符号#）</strong>
+</p>
+<p class="list-group-item-text">
+	考虑下面的代码：<br>
+	<pre>
+#define DEBUG  //  这类似于声明了一个变量
+using System;
+namespace hello
+{
+    
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            int x = 0;
+            x+=1;
+             #if DEBUG
+             Console.WriteLine(x);
+             #endif
+            Console.ReadKey();
+        }
+}
+	</pre>
+	运行结果为：<br>
+	<pre>1</pre>
+</p>
+<p class="list-group-item-text">
+	实际上当程序有<span style="color: red;">#define DEBUG时，就会编译#if的内容，当添加#undef指令后，程序将不再编译#if中的内容。这项技术称为<strong>条件编译</strong>。</span>
+</p>
+{% endblock %}

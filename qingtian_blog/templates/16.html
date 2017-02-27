@@ -1,0 +1,87 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+<strong>枚举是用户自定义的整数类型。</strong><br>
+<strong>枚举的优势：</strong>
+<ol>
+	<li><strong>枚举使代码更易于维护，有助于确保给变量指定合法的、期望的值。</strong></li>
+	<li><strong>枚举使代码更易于输入。</strong>给枚举实例赋值时，VS会弹出提醒列表，提供可选择的值。</li>
+	<li><strong>枚举使代码更清晰</strong>,允许使用描述性的名称表示整数值，而不是用含义模糊 、变化多端的数来表示。</li>
+</ol>
+参考下面的代码：
+<pre>
+	public enum TimeOfDay （使用的时候TimeOfDay 的作用类似int）
+    {
+        Morning = 0,    （如果不写“=0”那么Morning 默认为0，然后接下来的枚举大小依次递增1）
+        Afternoon =1,  ( 切记后面不是分号，而是逗号！！）
+        Evening = 2    （切记最后么有分号！！谁加谁傻逼。。。）
+    }
+</pre>
+<h3>使用的时候<code>TimeOfDay</code>的作用类似<code>int</code></h3>参考下面的代码：
+<pre>
+using System;
+namespace hello
+{
+    
+    class Program
+    {
+// 定义枚举
+        public enum TimeOfDay
+        {
+            Morning = 0,
+            Afternoon =1,
+            Evening = 2
+        }
+        
+        public static void Main(string[] args)
+        {
+            WriteGreeeting(TimeOfDay.Evening);
+            Console.ReadKey();
+        }
+// 传递TimeOfDay枚举类型的参数
+        static void WriteGreeeting(TimeOfDay timeOfDay)
+        {
+            switch(timeOfDay)
+            {
+                case TimeOfDay.Morning:
+                    Console.WriteLine("Good morning!");
+                        break;
+                case TimeOfDay.Afternoon:
+                    Console.WriteLine("Good afternoon!");
+                        break;
+                case TimeOfDay.Evening:
+                    Console.WriteLine("Good evening!");
+                        break;
+                default:
+                    Console.WriteLine("Hello!");
+                    break;
+            }
+        }
+    }
+</pre>
+运行结果：
+<pre>
+	Good evening!
+</pre>
+<strong>实际上，一旦代码编译好，枚举就成了基本类型，与int和float类似。
+    可以获得枚举的字符串表示：</strong>
+    <pre>
+		//声明TimeOfDay 类型的变量
+		TimeOfDay time = TimeOfDay.Afternoon;
+		//获得枚举的字符串表示
+		Console.WriteLine(time.ToString());
+    </pre>
+    运行结果：
+    <pre>Afternoon</pre>
+    <strong>
+可以从字符串中获取枚举值：</strong>
+<pre>
+	TimeOfDay time = (TimeOfDay)Enum.Parse(typeof(TimeOfDay),"afternoon",true);
+	Console.WriteLine((int)time);
+</pre>
+运行结果：
+<pre>1</pre>
+<span style="color: #008B8B;"><strong><code>Enum.Parse(，，，）</code>方法有三个参数，第一个为要使用的枚举类型，语法关键字是<code>typeof</code>后放在括号中的枚举类名，第二个是要转换的字符串，第三个参数是一个<code>bool</code>，指定在进行转换的时候是否忽略大小写。同时，<code>Enum.Parse（）</code>返回的是一个对象的引用，所以要拆箱，转换为<code>TimeOfDay</code></strong></span>
+</p>
+
+{% endblock %}

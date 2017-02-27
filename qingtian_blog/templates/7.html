@@ -1,0 +1,17 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+<strong>当整数表达式或语句溢出时，一般是默默地失败而不会抛出异常来，checked运算符可以使他抛出这个异常。</strong><br>
+举个例子：<br>
+<pre>
+	int a = 1000000;
+	int b = 1000000;
+	int c = checked(a*b);  //只检查这个表达式
+	checked
+	{
+	 c = a * b ;         //检查语句块的所有表达式
+	}
+</pre>
+至于<code>unchecked</code>嘛，你懂的。。。
+</p>
+{% endblock %}

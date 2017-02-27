@@ -1,0 +1,85 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+ 类储存在堆中，在数据的生存期上获得很大的灵活性，但是性能有一定的损失。但是，有事仅仅需要一个小的数据结构，此时，类提供的功能多于我们需要的功能，由于性能原因，最好使用结构。
+</p>
+<p class="list-group-item-text">结构的定义和类的定义完全相同，结构是值类型，类是引用类型。结构储存在栈中或储存为内联（如果他们是储存在堆中的另一个对象的一部分），生存期的限制和简单数据类型一样。</p>
+<ul>
+  <li><strong>结构不支持继承</strong></li>
+  <li><strong> 编译器总是提供一个无参数的默认构造函数，且不能被替换</strong></li>
+  <li><strong>使用结构可以指定字段如何在内存中布局</strong></li>
+  <li><strong>结构实际上是把数据项组合在一起，有时大多数或者全部字段都声明为public</strong></li>
+</ul>
+<p class="list-group-item-text">
+	如：<br>
+	<pre>
+using System;
+
+namespace Professional_C__5._and_.NET_4._._
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Dimensions dimension = new Dimensions(10,20);//调用自定义的构造函数，储存在栈中
+            Console .WriteLine(dimension.Diagonal);
+            Dimensions dim = new Dimensions();//调用编译器提供的无参的默认构造函数
+            Console.WriteLine(dim.Width);
+            Console.Write("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+    }
+    public struct Dimensions
+    {
+        public double Length;
+        public double Width;
+        public Dimensions(double length,double width)//自定义构造函数
+        {
+            Length = length;
+            Width = width;
+        }
+        /// <summary>
+        /// 错误的构造函数，结构的无参数的默认构造函数不能被替换
+        /// </summary>
+        public Dimensions()
+        {
+            Console.WriteLine("acquiescent constructor function");
+        }
+        public double Diagonal//属性
+        {
+            get
+            {
+                return Math.Sqrt(Length*Length+Width*Width);
+            }
+        }
+    }
+    /// <summary>
+    /// 只读字段
+    /// </summary>
+    public  class Document
+    {
+        public readonly DateTime CreationDate;
+        public  Dimensions dim =new Dimensions (3,4);//储存为内联
+        /// <summary>
+        /// Document的无参构造函数
+        /// </summary>
+        public Document()
+        {
+            CreationDate = new DateTime(2001,1,1,23,24,25);
+        }
+        
+    }
+}
+</pre>
+    <strong>因为结构是值类型，所以<code>new</code>运算符并不分配堆中的内存，而是只调用相应的构造函数，根据传递给它的参数初始化所有的字段，</strong>所以以下代码是合法的：<br>
+    <pre>
+    	Dimensions point;
+        point.Length=3;
+        point .Width=4;
+    </pre>
+	
+        结构作为参数来传递时，结构的所有内容都会被复制，这样就会有性能损失，，所以把结构作为参数传递给方法时应使用<code>ref</code>参数，这样就能避免性能损失。<br>
+        <strong>结构可以继承接口。</strong>
+</p>
+
+{% endblock %}

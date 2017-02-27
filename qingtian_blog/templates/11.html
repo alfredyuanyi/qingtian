@@ -1,0 +1,70 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+类的构造函数就是一个<strong>名称和类相同的、没有返回类型</strong>的函数，如：
+<pre>
+	public class Time
+    {
+        private string _year;
+        public Time(string year)     //声明类的构造函数
+        {
+            this._year=year;
+        }
+    }	
+</pre>
+</p>
+<p class="list-group-item-text">
+	类的构造函数的作用是为了<strong><span style="color: blue">初始化类的数据成员</span></strong>（字段，常量，事件的成员），构造函数可以重载，没有提供构造函数的情况下，编译器会在后台创建一个默认的构造函数，它只能把所有的成员字段初始化为标准的默认值（引用类型为null，数值数据类型为0，bool为false），但是如果提供了带参数的构造函数，编译器就不会自动提供默认的构造函数。
+</p>
+<h3>类的静态构造函数 </h3>
+<p class="list-group-item-text">
+	以下情况适用于使用类的静态构造函数：<br>
+	<ul>
+  		<li>类仅作用于某些静态成员或属性的容器，因此永远不会实例化它。</li>
+  		<li>希望类仅通过调用某个静态成员函数来实例（这就是所谓对象实例化的类工厂方法 ）</li>
+	</ul>
+静态构造函数不能有参数，不能有访问修饰符（加载类时，总是由.NET运行库调用它，所以修饰符就没有意义了），且只执行一次，同时，.NET运行库没有确保什么时候执行静态构造函数，所以不应把要求在某个特殊时刻（例如加载程序集时）执行的代码放在静态构造函数中。也不能预计不同类的静态构造函数按照什么顺序执行。但是可以确保静态构造函数只执行一次，即在调引用类之前调用它。
+</p>
+<p class="list-group-item-text">
+	在类中可以同时定义无参数的实例构造函数，因为加载类时执行静态构造函数，而在创建实例的时候执行实例构造函数，所以何时执行哪个构造函数并不会发生冲突。如：
+	<pre>
+	public class Time
+    {
+        
+        public static string _mouth;
+        private string _year;
+        public Time(string year)
+        {
+            this._year=year;
+        }
+        static Time()
+        {
+            _mouth = "12";
+        }
+    }	
+	</pre>
+	如何在一个类中的一个构造函数调用本类的另一个构造函数：
+	<pre>
+	public class Person
+    {
+        public string name;
+        public Person(string name)
+        {
+            this.name=name;
+        }
+    }
+    public  class  Teacher:Person 
+    {
+        public  uint age;
+        public Teacher (string name):this(name,12)
+        {
+              //将name传递给另一个构造函数，12作为age的默认值
+        }
+        public Teacher(string name,uint age):base(name)
+        {
+            this.age=age;
+        }
+    }
+	</pre>
+</p>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+<h3>单行文本</h3>
+<span><strong>父元素高度确定的单行文本</strong>的竖直居中的方法是通过设置父元素的 <var>height</var> 和 <var>line-height</var> 高度一致来实现的。如下代码：</span>
+<pre>
+&lt;div class="container"&gt;
+hi,imooc!
+&lt;/div&gt;
+</pre>
+css代码：
+<pre>
+&lt;style&gt;
+.container{
+height:100px;
+line-height:100px;
+background:#999;
+}
+&lt;/style&gt;
+</pre>
+</p>
+<p class="list-group-item-text">
+<h3>多行文本</h3>
+父元素高度确定的<span style="color: red;">多行文本、图片、块状元素</span>的竖直居中的方法有两种：<br>
+<strong>方法一：</strong>使用插入 table (包括tbody、tr、td)标签，同时设置<code>vertical-align：middle</code>。
+说到竖直居中，css 中有一个用于竖直居中的属性 <code>vertical-align</code>，但这个样式只有在父元素为 <code>td</code> 或 <code>th</code> 时，才会生效。所以又要插入 <code>table</code> 标签了。下面看一下例子：
+<pre>
+&lt;body&gt;
+&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class="wrap"&gt;
+&lt;div&gt;
+&lt;p&gt;看我是否可以居中。&lt;/p&gt;
+&lt;p&gt;看我是否可以居中。&lt;/p&gt;
+&lt;p&gt;看我是否可以居中。&lt;/p&gt;
+&lt;p&gt;看我是否可以居中。&lt;/p&gt;
+&lt;p&gt;看我是否可以居中。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;/body&gt;
+</pre>
+css代码：
+<pre>
+table td{height:500px;background:#ccc}
+</pre>
+因为 <code>td</code> 标签默认情况下就默认设置了 <code>vertical-align</code> 为 <code>middle</code>，所以我们不需要显式地设置了。
+<br>
+<strong>方法二：</strong>在 chrome、firefox 及 IE8 以上的浏览器下可以设置块级元素的 <code>display</code> 为 <code>table-cell</code>，激活 <code>vertical-align</code> 属性，但注意 IE6、7 并不支持这个样式。
+html代码：
+<pre>
+&lt;div class="container"&gt;
+    &lt;div&gt;
+        &lt;p&gt;看我是否可以居中。&lt;/p&gt;
+        &lt;p&gt;看我是否可以居中。&lt;/p&gt;
+        &lt;p&gt;看我是否可以居中。&lt;/p&gt;
+        &lt;p&gt;看我是否可以居中。&lt;/p&gt;
+        &lt;p&gt;看我是否可以居中。&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+css代码：
+<pre>
+.container{
+    height:300px;
+    background:#ccc;
+    display:table-cell;/*IE8以上及Chrome、Firefox*/
+    vertical-align:middle;/*IE8以上及Chrome、Firefox*/
+}
+</pre>
+<strong>这种方法的好处是不用添加多余的无意义的标签，但缺点也很明显，它的兼容性不是很好，不兼容 IE6、7。</strong>
+<strong>方法三：</strong>隐性改变display类型<br>
+有一个有趣的现象就是当为<span style="color: red;">元素（不论之前是什么类型元素，display:none 除外）</span>设置以下 2 个句之一：
+<ol>
+	<li><code>position : absolute</code></li>
+	<li><code>float : left</code> 或 <code>float:right</code></li>
+</ol>
+元素会自动变为以<code> display:inline-block </code>的方式显示，当然就可以设置元素的<code> width </code>和<code> height </code>了且默认宽度不占满父元素。
+如下面的代码，小伙伴们都知道<code> a </code>标签是行内元素，所以设置它的<code> width </code>是 没有效果的，但是设置为<code> position:absolute </code>以后，就可以了。<br>
+html代码：
+<pre>
+&lt;div class="container"&gt;
+    &lt;a href="#" title=""&gt;进入课程请单击这里&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+css代码：
+<pre>
+.container a{
+    position:absolute;
+    width:200px;
+    background:#ccc;
+}
+</pre>
+</p>
+{% endblock %}

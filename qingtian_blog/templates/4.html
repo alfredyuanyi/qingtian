@@ -1,0 +1,19 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">最近在django的新项目上做了文件上传的功能，在自己电脑上跑起来完全没有问题，部署到服务器上后发现报了上传路径permission denied。先贴出<code>settings.py</code>的设置</p>
+<pre>
+MEDIA_ROOT = '/home/ubuntu/youprojectname/media/'
+MEDIA_URL = os.path.join(BASE_DIR,'/media/')
+</pre>
+这里注意<code>MEDIA_ROOT</code>的值最好是<strong>绝对路径</strong>。<br>
+
+<h3>下面是解决办法</h3>
+<pre>
+sudo groupadd varwwwusers
+sudo adduser www-data varwwwusers
+sudo chgrp -R varwwwusers /home/ubuntu/youprojectname/
+sudo chmod -R 770 /home/ubuntu/youprojectname/
+</pre>
+<p class="list-group-item-text">这样就把<code>www-data</code>用户添加到了<code>varwwwusers</code>用户组，然后再让该用户组有了<code>/home/ubuntu/youprojectname/</code>文件夹及其所有子文件夹的权限。<code>chmod</code>将会给该用户组读、写、执行的权限同时阻止其他的没有权限的企图使用该文件夹的用户。</p>
+<p class="list-group-item-text">如果不够详细敬请谅解，这里贴出<a href="http://stackoverflow.com/questions/21797372/django-errno-13-permission-denied-var-www-media-animals-user-uploads">stackoverflow上的相同问题解决方案</a>，供大家参考。</p>
+{% endblock %}

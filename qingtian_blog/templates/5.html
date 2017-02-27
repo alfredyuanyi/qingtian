@@ -1,0 +1,23 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text"><code>tar</code>参数</p>
+<p>
+	-c:将文件打包（但不压缩）<br>
+	-x：将打包文件解压<br>
+	-z：将打包文件压缩。<br>
+    -v：把压缩过程显示出来。<br>
+    -f：我的理解是用当前的名字。如xxx目录，那么打包之后就是xxx.tar。压缩之后就是xxx.tar.gz<br>
+    for example：<br>
+      	打包目录下的workspace（不压缩）<br>
+     	<code>tar -cvf workspace.tar workspace</code><br>
+  		打包并压缩目录下的worksapce<br>
+     	<code>tar -zcvf workspace.tar.gz worksapce</code><br>
+     	解压<br>
+     	这需要看后缀名来的，当后缀名有<code>.gz</code>时表示这个包经过压缩处理的。反之，者没有。但都可以用<code>tar</code>来解压的  <br> 
+            1. 解包 <code>workspace.tar</code><br>
+                <code>tar -xvf worksapce.tar</code><br>
+            2. 解包 <code>workspace.tar.gz</code><br>
+                <code>tar -xvf workspace.tar.gz</code><br>
+</p>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+在.NET Framework中，一般规则是要变量名要反映变量实例的功能而不是反映数据类型。
+名称的约定包括以下几个方面：<br>
+<ol>
+  <li>
+  	名称的大小写<br>
+  	<strong>名称空间，类，方法，属性</strong>采用Pascal命名，即名称中单词的首字母偶读大写。如：<br>
+  	<pre>
+  		class  EmployeeSalary
+		public void OpenFile()
+		public string Name
+  	</pre>
+  	<strong>类中的私有成员（一般加前缀_)，传递给方法的参数  </strong>一般采用camel命名法，即名称的第一个单词的首字母不大写，其余的单词的首字母大写，如<br>
+  	<pre>
+  		private int _studentId
+		public void OpenFile(string filePath)
+  	</pre>
+  </li>
+  <li>
+  	名称的风格<br>
+  	<strong> 名称的风格应该一致。</strong>例如，类中的一个方法被命名为<code>ShowFileDialog()</code>，另一个方法就不能被命名为<code>ShowDialogWarning()</code>或者<code>WarningDialogShow()</code>，而应该是<code>ShowWarningDialog()</code>
+  </li>
+  <li>
+  	名称空间的名称<br>
+  	<strong>名称空间的名称是.NET区分共享程序集中对象名的唯一方式。</strong>最好是用自己的公司名创建顶级的名称空间，再嵌套低一级的名称空间推荐如下：<br>
+  	<pre>&lt;CompanyName&gt;.&lt;TechnologyName&gt;</pre>
+  </li>
+  <li>
+  	名称和关键字<br>
+  	<strong>名称不能和任何关键字冲突。</strong>
+  </li>
+  <li>
+  	属性和方法的使用<br>
+  	<ul>
+  		<li>客户端代码应能读取它的值，最好不要使用只写属性，例如，应使用<code>SetPassword()</code>方法，而不是<code>Password</code>只写属性</li>
+  		<li>读取改制不应花太长的时间。实际上，如果它是一个属性，通常表明读取过程画的时间相对较短。</li>
+  		<li>读取该值不应有任何明显的和不希望的负面效应。设置属性的值，不应由于该属性不直接相关的负面效应。谁知对话框的宽度会改变该对话框在屏幕上的外观，这是可以的，因为它与该属性相关。</li>
+  		<li>可以按照任何顺序设置属性。</li>
+  		<li>顺序读取属性也应有相同的效果</li>
+  	</ul>
+  	<strong>如果编码的相关想满足上述的所有条件，那就把它设置为属性，否则就应该使用方法。
+</strong>
+  </li>
+  <li>
+  	字段的用法<br>
+  	字段应总是私有的，某些情况下也可以把常量或只读字段设置为共有的，原因是如果把字段设置为公有就不利于以后扩展或修改类
+  </li>
+</ol>
+
+</p>
+
+{% endblock %}

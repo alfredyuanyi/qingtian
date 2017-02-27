@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="container" id="csharpcontainer">
-{% if blog_type == 'C#基础' %}
+{% if blog_type == 'C#' %}
 {% for blog in blogs %}
 <div class="list-group">
     <a href="/blogs/CSharpbaseblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
@@ -14,28 +14,37 @@
 {% endfor %}
 {% endif %}
 
-{% if blog_type == 'C#进阶' %}
+{% if blog_type == 'python' %}
 {% for blog in blogs %}
 <div class="list-group">
-    <a href="/blogs/CSharpadvanceblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <a href="/blogs/pythonblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
     <p class="list-group-item-text">{{ blog.content }}</p>
 </div>
 {% endfor %}
 {% endif %}
 
-{% if blog_type == 'Bootstrap' %}
+{% if blog_type == 'webFront' %}
 {% for blog in blogs %}
 <div class="list-group">
-    <a href="/blogs/Bootstrapblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <a href="/blogs/webfrontblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
     <p class="list-group-item-text">{{ blog.content }}</p>
 </div>
 {% endfor %}
 {% endif %}
 
-{% if blog_type == 'ubuntu' %}
+{% if blog_type == 'datastruct' %}
 {% for blog in blogs %}
 <div class="list-group">
-    <a href="/blogs/ubuntublog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <a href="/blogs/datastructblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
+    <p class="list-group-item-text">{{ blog.content }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if blog_type == 'linux' %}
+{% for blog in blogs %}
+<div class="list-group">
+    <a href="/blogs/linuxblog/{{ blog.id }}/"><h4 class="list-group-item-heading">{{ blog.title }}</h4></a>
     <p class="list-group-item-text">{{ blog.content }}</p>
 </div>
 {% endfor %}

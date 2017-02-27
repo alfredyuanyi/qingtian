@@ -1,0 +1,31 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text"><strong>栈是存储局部变量和参数的内存块。
+堆是存储对象的内存块或者说是对象残存的内存块。</strong></p>
+<p class="list-group-item-text"><strong>值类型的变量都存储在栈上，引用类型的变量在堆上开辟一块内存来存储这个对象的内容，同时在栈上开辟一个内存单元来存储对这块在堆上的内存的地址，简单来说就是栈里存储着对堆的引用。</strong></p>
+<p class="list-group-item-text">参数的传递：</p>
+<p class="list-group-item-text"><strong>值传递参数</strong>，代码如下：<br>
+	<pre>
+    public class Test
+    {
+        static  void Foo(int p)
+        {
+            p = p+ 1 ;
+            Console.WriteLine(p);
+        }
+        public int  Number { get; set; }
+    }
+	</pre>
+	<h3>main函数的代码：</h3>
+    <pre>
+    int x = 8 ;
+    Test.Foo(x);              //创建x 的副本，在栈上开辟了新的内存
+    Console.WriteLine(x);     //x的值还是8 
+    </pre>
+    <h2>值传递的时候并没有改变x的值，传递的时候为p在栈上开辟了新的内存，p和x存储在不同的内存中。</h2>
+</p>
+<p class="list-group-item-text"><strong>引用传递参数：</strong><br>
+引用参数传递的是对象的引用，是为已存变量的存储空间取了一个别名，而并没有创建新的存储空间
+如果上面代码的p是引用传递的话，那么结果就是p和x指向同一块内存，改变p就是改变x.
+</p>
+{% endblock %}

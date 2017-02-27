@@ -1,0 +1,116 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+在经常碰到要使内容水平居中的问题，现总结下。
+<ol>
+	<li>行内元素：<code>inline：text-align:center;</code></li>
+	<li>块状定宽：<code>block：margin：0 auto；</code>（定宽+左右<code>auto</code>）</li>
+	<li>块状不定宽：<br>
+	&nbsp;&nbsp;a、加入<code>table</code>标签；<br>
+	&nbsp;&nbsp;b、设置<code>display: inline;</code>方法<br>
+	&nbsp;&nbsp;c、设置<code>position: relative;</code>和<code>left: 50%;</code>
+	</li>
+</ol>
+</p>
+<p class="list-group-item-text">
+	<strong>对于a方法</strong><br>
+	第一步：为需要设置的居中的元素外面加入一个<code> table </code>标签 ( 包括 &lt;tbody&gt;、&lt;tr&gt;、&lt;td&gt; )。<br>
+	第二步：为这个<code> table </code>设置“左右<code> margin </code> 居中”（这个和定宽块状元素的方法一样）。<br>
+	举例如下：<br>
+	html代码：
+	<pre>
+&lt;div&gt;
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+	</pre>
+	CSS代码：
+	<pre>
+table{
+    margin:0 auto;
+}
+
+ul{list-style:none;margin:0;padding:0;}
+li{float:left;display:inline;margin-right:8px;}
+	</pre>
+</p>
+<p class="list-grout-item-text">
+	<strong>对于b方法</strong><br>
+	改变块级元素的<code> display </code>为<code> inline </code>类型，然后使用<code> text-align:center </code>来实现居中效果。如下例子：<br>
+	html代码：
+	<pre>
+&lt;body&gt;
+&lt;div class="container"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+	</pre>
+	CSS代码：
+	<pre>
+.container{
+    text-align:center;
+}
+.container ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:inline;
+}
+.container li{
+    margin-right:8px;
+    display:inline;
+}
+	</pre>
+	<strong>这种方法相比第一种方法的优势是不用增加无语义标签，简化了标签的嵌套深度，但也存在着一些问题：它将块状元素的<code> display </code>类型改为<code> inline </code>，变成了行内元素，所以少了一些功能，比如设定长度值。
+</strong>
+</p>
+<p class="list-group-item-text">
+	<strong>对于c方法</strong><br>
+	通过给父元素设置<code> float </code>，然后给父元素设置<code> position:relative </code>和<code> left:50% </code>，子元素设置<code> position:relative </code>和<code> left:-50% </code>来实现水平居中。
+	代码如下：
+	<pre>
+&lt;body&gt;
+&lt;div class="container"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+	</pre>
+	CSS代码：
+	<pre>
+.container{
+    float:left;
+    position:relative;
+    left:50%
+}
+
+.container ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    
+    position:relative;
+    left:-50%;
+}
+.container li{float:left;display:inline;margin-right:8px;}
+	</pre>
+	<strong>这种方法可以保留块状元素仍以 display:block 的形式显示，优点不添加无语议表标签，不增加嵌套深度，但它的缺点是设置了<code> position:relative </code>，带来了一定的副作用。</strong>
+</p>
+<h4>这三种方法使用得都非常广泛，各有优缺点，具体选用哪种方法，可以视具体情况而定。</h4>
+{% endblock %}

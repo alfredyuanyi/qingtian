@@ -1,0 +1,70 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+<h3>变量的作用域：</h3>
+<ul>
+	<li>只要类在某个作用域内，其字段（也称为成员变量）也在该作用域内</li>
+	<li>局部变量存在于声明它的块语句或方法结束的右花括号之前的作用域内。</li>
+	<li>在for 、 while 或类似的语句中声明的局部变量存在于该循环体内。</li>
+</ul>
+考虑下面的代码
+<pre>
+using System;
+namespace hello
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+            // TODO: Implement Functionality Here
+            int j =20;
+            for(int i =0; i<10;i++)
+            {
+                int j = 30 ;
+            }
+            Console.Write("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+    }
+</pre>
+<strong>编译报错：j定义在main方法中，第二个j存在于for循环的作用域内，该作用域嵌套在main方法的作用域中，编译器无法区分这两个变量，所以不允许声明第二个变量。</strong>
+<br>
+考虑下面的代码
+<pre>
+using System;
+namespace hello
+{
+    class Program
+    {
+        int j =20;
+        public static void Main(string[] args)
+        {
+            int j =30
+            Console.WriteLine(j)；
+            Console.ReadKey(true);
+        }
+    }
+</pre>
+<strong>
+编译不报错：在类级定义的j，在该类删除前是不会超出其作用域的（main方法终止时，程序结束，才会删除该类）；  在main 定义的j会隐藏同名的类级变量，措意运行该段代码会显示30；</strong>
+运行结果：
+<pre>30</pre>
+</p>
+<p class="list-group-item-text">
+	<strong>常量：</strong>值在使用过程不会发生变化的变量，在声明和初始化变量时，在变量前面加上关键字<code>const</code>，就可以把变量指定为一个常量：
+	<pre>const int SalaTax = 0.06；</pre>
+	<strong>常量的特点</strong>
+	<ul>
+		<li>常量必须在声明时初始化。指定了其值后就不能再改写了。</li>
+		<li><strong>常量必须能在编译时用于计算。因此，不能从一个变量中提取的值来初始化常量。如果需要这么做，应使用只读字段。</strong></li>
+		<li>常量总是静态的，，不允许在常量声明中包含修饰符static。</li>
+	</ul>
+	<strong> 常量的优点</strong>
+	<ul>
+		<li><strong>常量的名称易于理解</strong>（相对数字或字符串而言），使得程序易于理解</li>
+		<li><strong>常量是的程序易于修改。</strong>如：税率SalesTax为6% ，如果发生改变只需改变该常量，而不用查找整个程序修改税率为0.06的每个项。</li>
+		<li><strong>常量更容易避免程序出错。 </strong> 如果在声明常量的位置以外的某个地方将另一个值付给常量，编译器就会报错。</li>
+	</ul>
+</p>
+{% endblock %}

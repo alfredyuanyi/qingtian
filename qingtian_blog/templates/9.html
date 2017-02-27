@@ -1,0 +1,60 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+对于协变和抗变的这两个词的定义，是初次接触；然而实际应用应该是从用c#语言编写代码开始的。
+这两个词的理解过程非常绕，查看很多资料，再加上敲代码调试之后才逐渐有点理解它们的含义。<br>
+<strong><span style="color: blue;">所谓的协变，可以理解成：父类 -> 子类。父类的对象用子类替换，也可以理解成子类当父类用。</span></strong><br>
+<strong><span style="color: blue;">所谓的抗变，可以理解成：子类 -> 父类。子类的对象用父类替换，也可以理解成父类当子类用。抗变也常常翻译为逆变。</span></strong><br>
+</p>
+<p>
+在c#的语言中，很多地方的调用已经隐藏了协变和抗变的使用。<span style="color: red;">函数的返回类型默认是抗变的。</span>例如，函数Func的返回类型为string，我们可以将返回的值赋给object对象。
+<pre>
+private void button2_Click(object sender, EventArgs e)
+{
+    //注意这里：Func的返回类型为string, obj的类型为object, string类型继承自object
+    object obj = Func();
+}
+
+string Func()
+{
+    return "这里有协变的应用";
+}
+</pre>
+<strong><span style="color:red;">函数的参数类型则默认是协变的。</span></strong>例如，函数Act的输入参数为object类型，实际操作中我们可以将string类型的对象传给函数。
+<pre>
+private void button2_Click(object sender, EventArgs e)
+{
+    string str = "这是一个string类型的实例, 函数Act的参数为object, 这里有抗变的应用";
+    Act(str);
+}
+
+void Act(object obj)
+{
+    return ;
+}
+</pre>
+再看下面代码，两者一起应用。
+<pre>
+private void button2_Click(object sender, EventArgs e)
+{
+    string str = "这是一个string类型的实例";
+    object obj = null;
+    obj = Both(str);
+}
+
+string Both(object obj)
+{
+    return "协变和抗变两者都有";
+}
+</pre>
+</p>
+<p class="list-group-item-text">
+	接下来说说我对《C# 高级编程》中的泛型接口的协变和抗变的理解。<br>
+	上面提到了，c#的语法中已经定义了一些协变和抗变的应用。在泛型接口的定义中，如果泛型类型T用out关键词标注，这个泛型接口就是协变的。而且在接口的代码里面，T只能用作返回类型，不能用作参数类型。<br>
+	如果泛型类型T用in关键词标注的话，这个接口就是抗变的。在接口的代码里面，T只能用作函数的参数类型，而不能用作返回类型。
+</p>
+<p class="list-group-item-text">
+	<strong><span>补充一篇转载：</span></strong><br>
+	转载自：http://www.cnblogs.com/tenghoo/archive/2012/12/04/interface_covariant_contravariant.html
+</p>
+{% endblock %}

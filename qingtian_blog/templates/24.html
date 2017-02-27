@@ -1,0 +1,23 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+今天来总结下CSS样式的优先权。
+<ol>
+	<li>
+	四种方式的优先权：<br>&nbsp;&nbsp; <strong>内联式----->内嵌式------>外链式----->导入式</strong>
+	<ul>
+		<li>内联式：直接写在标签里的，如<code>&lt;p style="color:blue"&gt;&lt;/p&gt;</code>;</li>
+		<li>内嵌式：写在<code>&lt;style>&lt;/style&gt;</code>里的，如：<code>&lt;style&gt; p{color:blue;}&lt;/style&gt;</code>;</li>
+		<li>外链式：写在其他文件里，使用<code>&lt;link&gt;</code>标签（写在<code>&lt;head&gt;</code>里）引入的，如 <code>&lt;link href="style.css" rel="stylesheet" type="text/css" /&gt;</code>；</li>
+		<li>导入式：写在其他文件里，使用<code>@import url("base.css")</code>（写在<code>&lt;style&gt;</code>里）导入，如<code>&lt;style type="text/css"&gt;@ import url("base.css") &lt;/style&gt;</code>;</li>
+	</ul>
+	</li>
+	<li>CSS优先权：就近原则；</li>
+	<li>作用范围越小，优先权越大；</li>
+	<li>离修饰目标越近的样式优先权越高；</li>
+	<li>选择符优先权：<strong>行内----->id----->class----->标签选择符；</strong></li>
+	<li>可以使用<code>!important</code>来提升权限，用在属性的值的后面，如<code>p{color:red !important;}</code></li>
+</ol>
+</p>
+
+{% endblock %}

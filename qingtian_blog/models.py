@@ -7,12 +7,13 @@ from django.db import models
 class Blog(models.Model):
 	title = models.CharField(max_length = 100)
 	blog_tag = models.CharField(max_length=20, default="hello")
-	# blog_type 只有C#base, C#advance, Bootstrap, ubuntu四种选择
+	# blog_type 只有C#b, python, webFront, linux,datastruct四种选择
 	blog_type = models.CharField(max_length = 20, choices=[
-		('C#base', 'C#base'),
-		('C#advance', 'C#advance'),
-		('Bootstrap', 'Bootstrap'),
-		('ubuntu', 'ubuntu')])
+		('C#', 'C#小记'),
+		('python', 'python'),
+		('webFront', '前端'),
+		('linux', 'linux'),
+		('datastruct','数据结构')])
 	date = models.DateField()
 	traffic = models.IntegerField(default = 0)
 	approval = models.IntegerField(default = 0)
@@ -27,14 +28,18 @@ class Blog(models.Model):
 
 class UploadFile(models.Model):
 	HtmlFile = models.FileField(upload_to='templates/', max_length = 100)
-	
+	title = models.CharField(max_length=50, default='updloadfile')
 	class Meta:
 		verbose_name='html文件'
 		verbose_name_plural = 'HTML文件'
+	def __unicode__(self):
+		return self.title
+		pass
 blogtype = {
-	'C#base': 'C#基础',
-	'C#advance': 'C#进阶',
-	'Bootstrap': 'Bootstrap',
-	'ubuntu': 'ubuntu'
+	'C#': 'C#',
+	'python': 'python',
+	'webFront': 'webFront',
+	'linux': 'linux',
+	'datastruct': 'datastruct'
 }
 

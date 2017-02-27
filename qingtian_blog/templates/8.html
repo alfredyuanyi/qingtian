@@ -1,0 +1,19 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text"><strong>把一个大的整数类型转换成浮点类型会保留整数部分，但是有时会丢失精度这是因为浮点类型总是有比整数类型更大的值，但是可能只有更少的精度。</strong><br>
+举个例子：<br>
+<pre>
+	#region  用float会丢失精度，用double则不会
+	int i = 100000001;
+	float f = i;
+	int j = (int)f;
+	Console.WriteLine("i = {0};  f = {1}; j = {2}",i,f,j);
+	#endregion
+	</pre>
+	<strong>运行结果：</strong><br>
+	<code>i = 100000001; f = 	1E+08; j = 100000000</code>
+</p>
+<p class="list-group-item-text">解释：<br>
+	<strong>因为<code>float</code>的精度只到七，所以<var>f</var>在表示的时候是<code>1.0000000E8</code> ，这样就把1给丢 了。。</strong>
+</p>
+{% endblock %}

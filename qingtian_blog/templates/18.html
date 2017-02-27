@@ -1,0 +1,76 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<h3>CTS类型（通用类型系统）</h3>
+<p class="list-group-item-text">
+<strong>预定义的值类型</strong>
+<ol>
+	<li><strong>整型：</strong>
+	<ul>
+		<li>所有整数类型的变量都能被赋予十进制或十六进制的数，或者需要加<code>0x</code>前缀： <code>long x= 0x12ab</code>；</li>
+		<li>如果对一个整数<code>int</code>、<code>uint</code>、<code>long</code>、<code>ulong</code>没有任何显示的声明 ，则该变量某认为<code>int</code>类型，指定为其他类型要添加如下字符： <pre>
+uint ui = 123U；
+long l =123L；
+ulong ul = 123UL；</pre>也可以使用小写字母u和l，但是后者会与整数1搞混。</li>
+	</ul>
+	</li>
+	<li><strong>浮点类型：</strong>
+	<ul>
+		<li>精度要求：decimal&nbsp; > &nbsp;double&nbsp; > &nbsp;float ；</li>
+		<li>默认浮点数为<code>double</code>，声明<code>float</code>或<code>decimal</code>要加F或M；</li>
+	</ul>
+	</li>
+	<li><strong>bool类型；</strong></li>
+	<li><strong>字符类型；</strong></li>
+</ol>
+</p>
+<p class="list-group-item-text">
+	<strong> 预定义的引用类型：</strong>
+	<ol>
+		<li>object类型</li>
+		<li>string类型：
+		<ul><li><strong>字符串的不可变性。</strong>每次修改一个字符串，就会创建一个全新的string对象，而另一个字符串不会发生任何变化。考虑如下代码：
+		<pre>
+using System;
+namespace hello
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            string s1 = " a string " ;
+            string s2 = s1 ;
+            Console.WriteLine("s1 is  " + s1 );
+            Console.WriteLine("s2 is  " _ s2);
+            s1 = "another string " ;
+            Console.WriteLine("s1 is now " + s1 ) ;
+            Console.WriteLine("s2 is now " + s2 ) ;
+            Console.ReadKey();
+        }
+    }
+}
+		</pre>
+		运行结果为：
+		<pre>
+s1 is   a string
+s2 is   a string
+s1 is now another string
+s2 is now  a string
+		</pre>
+		改变<code>s1 </code>的值对<code>s2</code>没有影响，这与我们期待的引用类型正好相反 。实际上在给<code>s1</code>赋值“another string " 时，在内存中重新分配了一个新的对象，<var>s2</var> 仍指向原来的对象，所以他的值没有改变。
+		</li>
+		<li>C#字符串和和char一样，可以包含Unicode和十六进制数转义序列。在字符串中使用反斜杠字符，要么用两个反斜杠（\\）来表示它： <code>string filePath = "C:\\PtoCsharp\\First.cs";</code>
+  鉴于输入两个反斜杠有点蛋疼，所以还可在字符串量的前面加上字符<strong>@</strong>，在这个字符后的所有字符都看成其原来的含义——他们不会解释为转义字符：
+<pre>
+string jabberwochy = @"'Twas brillig and the slithy toves. Did gyre and gimble in the wabe.";
+</pre>
+运行结果如下：
+<pre>
+C:\PtoCsharp\First.cs
+'Twas brillig and the slithy toves. Did gyre and gimble in the wabe.
+</pre>
+  </li>
+		</ul>
+		</li>
+	</ol>
+</p>
+{% endblock %}

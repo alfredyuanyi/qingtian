@@ -1,0 +1,44 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+只读字段和常量有些类似，<strong>常量的概念就是一个包含不能修改的值的变量。</strong>但是，有些时候我们可能需要一些不能改变的值，但是在运行前并不能确定它的值，也就是说，可能需要<strong>在构造函数里初始化这个变量，这个时候就要使用只读字段了。</strong>
+</p>
+<p class="list-group-item-text">
+	<strong> 只读字段只能在构造函数或者声明这个变量的时候初始化或者赋值操作。</strong><br>
+	如：<br>
+	<pre>
+using System;
+
+namespace Professional_C__5._and_.NET_4._._
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Document doc = new Document();
+            doc.CreationDate = DateTime.Now;// 非法操作
+            Console.WriteLine(doc.CreationDate);
+            Console.Write("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+    }
+    public  class Document
+    {
+        public readonly DateTime CreationDate;
+        /// <summary>
+        /// Document的无参构造函数
+        /// </summary>
+        public Document() // 在构造函数中对只读字段赋值
+        {
+            CreationDate = new DateTime(2001,1,1,23,24,25);
+        }
+        DateTime ChangeCreationDate()// 非法操作
+        {
+            CreationDate = "2001.1.1"; 
+        }
+    }
+}
+	</pre>
+	 构造函数并不一定要对只读字段赋值，如果没有赋值，那么它的值就是特定数据类型的默认值，或者在声明时给它初始化的值。
+</p>
+{% endblock %}

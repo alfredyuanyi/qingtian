@@ -1,0 +1,71 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+<h3>如何在Apache中配置单IP多端口监听</h3>
+服务端配置:<br>
+系统:&nbsp;ubuntu 14.04<br>
+Apache版本:&nbsp;Apache/2.4.7
+web框架:&nbsp;Django
+</p>
+<p>
+	第一步,&nbsp;查看端口是否开启(示例端口为8000)<br>
+	<code>sudo netstat -tnlp | grep :8000</code><br>
+	或者<br>
+	<code>ss -tnlp | grep :8000</code><br>
+	如果没有任何输出意味着8000端口并没有开启.
+</p>
+<p>
+	第二步,&bnsp;修改Apache配置文件.<br>
+	<button type="button" class="btn btn-primary btn-lg">注意</button><mark>Ubuntu下Apache的配置文件名为apache2.conf,而centos下Apache的配置文件为httpd.conf</mark>
+	<code>sudo vim /etc/apache2/apache2.conf</code><br>
+	在文件底部添加
+	<pre>
+		Listen 8080
+		Listen 8000
+		# Virtual hosts
+		Include /etc/apache2/sites-available/easyform.conf
+		Include /etc/apache2/sites-available/qingtian.conf
+	</pre>	
+	<button type="button" class="btn btn-primary btn-lg">注意</button><mark>不能忘记<code>Listten 8080</code>否则就无法监听8080端口了,当然如果你不需要监听该端口另说.</mark><br>
+	最下面两行是网站的配置文件,不能缺少.
+</p>
+<p>
+	第三步,&bnsp;建立网站配置文件.<br>
+	<code>vim /etc/apache2/sites-available/easyform.conf</code><br>
+	在文件中写入:
+	<pre>
+	<VirtualHost *:8000>
+	    ServerName YourServerName
+	    ServerAdmin 1067831552@qq.com
+		Alias /media/ /your/media/path/
+	    Alias /static/ /your/static/file/path/
+
+	    <Directory /your/media/path>
+	        Require all granted
+	    </Directory>
+
+	    <Directory /your/static/file/path>
+	        Require all granted
+	    </Directory>
+
+	    WSGIScriptAlias / /your/djaong/project/wsgi.py/path
+	    # WSGIDaemonProcess ziqiangxuetang.com python-path=/home/tu/blog:/home/tu/.virtualenvs/blog/lib/python2.7/site-packages
+	    # WSGIProcessGroup ziqiangxuetang.com
+
+	    <Directory /your/djaong/project/wsgi.py/path>
+	    <Files wsgi.py>
+	        Require all granted
+	    </Files>
+	    </Directory>
+	</VirtualHost>
+	</pre>
+	<button type="button" class="btn btn-primary btn-lg">注意</button><mark>wsgi文件是django项目中的一个在新建项目时候就会自动生成的文件.关于它的作用我们会在本站的如何部署django项目的博客中谈到.</mark><br>
+</p>
+<p>
+	第四步,&bnsp;重启Apache服务.<br>
+	<code>sudo service apache2 reload</code><br>
+	<code>sudo service apache2 restart</code><br>
+	如果以上步骤都没问题的话,那么此时在浏览器中输入IP:port应该就能访问对应的网站了.
+
+</p>
+{% endblock %}

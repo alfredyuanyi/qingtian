@@ -1,0 +1,14 @@
+{% extends "C#baseid.html" %}
+{% block blog_content %}
+<p class="list-group-item-text">
+伪类语法：<br>&nbsp;&nbsp;<strong>元素名称：伪类名称{属性：值}</strong><br>例如，超链接的:
+<ul>
+	<li>鼠标移动到超链接上：<code>a:hover{text-decoration:underline;}</code></li>
+	<li>未访问的超链接：<code>a:link{color:black;}</code></li>
+	<li>已访问的超链接：<code>a:visited{color:green;}</code></li>
+	<li>鼠标按下超链接：<code>a:active{color:blue;}</code></li>
+</ul>
+<h4>超链接状态的顺序：L-----V-----H-----A    </h4>
+</p>
+
+{% endblock %}
